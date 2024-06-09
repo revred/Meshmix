@@ -1,18 +1,11 @@
 ﻿using RealOne = float;
 using RealTwo = double;
 using Indexer = uint;
+using R1Vec3 = System.Numerics.Vector3;
 
 using System.Runtime.InteropServices;
 
 namespace raMeshe;
-
-[StructLayout(LayoutKind.Sequential)]
-public struct R1Vec3
-{
-    public RealOne x;
-    public RealOne y;
-    public RealOne z;
-}
 
 [StructLayout(LayoutKind.Sequential)]
 public struct R2Vec3
@@ -21,7 +14,6 @@ public struct R2Vec3
     public RealTwo y;
     public RealTwo z;
 }
-
 
 [StructLayout(LayoutKind.Sequential)]
 public struct Intrix
@@ -45,6 +37,18 @@ public struct Point3d
     public RealTwo x;
     public RealTwo y;
     public RealTwo z;
+
+    public Point3d()
+    {
+        x = y = z = 0.0d;
+    }
+
+    public Point3d(R1Vec3 r3)
+    {
+        x = r3.X;
+        y = r3.Y;
+        z = r3.Z;
+    }
 }
 
 [StructLayout(LayoutKind.Sequential)]

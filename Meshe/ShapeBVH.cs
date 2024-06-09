@@ -10,4 +10,9 @@ internal class ShapeBVH : IShapeBVH
     {
         throw new NotImplementedException();
     }
+
+    public ShapeBVH()
+    {
+        strategy_ = IShapeBVH.SplitStrategy.atAverage;
+    }
 }
