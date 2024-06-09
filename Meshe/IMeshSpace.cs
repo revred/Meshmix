@@ -4,7 +4,7 @@ namespace raMeshe;
 
 public record MakerSpec(string Options);
 
-public interface IShapeBVH
+public interface IShapeBVH : ISubSpace
 {
     Stream Serialize(MakerSpec? options = null);
     // SplitStrategy.atSAH = Surface Area Hueristics
@@ -12,7 +12,6 @@ public interface IShapeBVH
     SplitStrategy Strategy { get; }
 
     Task RebuildAsync();
-    Task TraverseAsync(Ray3d hitter);
 }
 
 public interface ITriMesh : IDisposable

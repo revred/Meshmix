@@ -26,10 +26,9 @@ internal class ShapeBVH : IShapeBVH
         throw new NotImplementedException ();
     }
 
-    public Task TraverseAsync(Ray3d hitter)
+    public bool Intersect(Ray3d hitter)
     {
         // Implementation of the intersection test with hitter on shape_
         throw new NotImplementedException();
     }
-
 }
