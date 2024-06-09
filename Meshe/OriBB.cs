@@ -2,11 +2,16 @@
 
 namespace raMeshe;
 
-public class OriBB : ISubSpace
+public struct OriBB
 {
     public Vector3 Center;
     public Vector3 Size;
     public Quaternion Rotation;
+}
+
+public class OriBBNode : ISubSpace
+{
+    OriBB space_;
 
     public static OriBB CreateFrom(IList<Vector3> vertices)
     {
@@ -14,11 +19,36 @@ public class OriBB : ISubSpace
         throw new NotImplementedException();
     }
 
-    public bool Intersect(Ray3d ray)
+    
+    ISubSpace? left_;
+    ISubSpace? right_;
+
+    public ISubSpace? Left => left_;
+
+    public ISubSpace? Right => right_;
+
+    public void SplitSpace()
+    {
+        // Implementation of splitting the OriBB geometric space
+        throw new NotImplementedException();
+    }
+
+    public OriBBNode()
+    {
+        left_ = right_ = null;
+    }
+
+    // Methods for intersection tests
+    public bool Intersect(Ray3d ray, out HitList? hits)
     {
         // Implementation of intersection test with a ray
         throw new NotImplementedException();
     }
 
-    // Methods for intersection tests
+    public bool Intersect(Ray3d ray, out HitFirst? hit)
+    {
+        // Implementation of intersection test with a ray
+        throw new NotImplementedException();
+    }
+
 }

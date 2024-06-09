@@ -5,7 +5,13 @@ namespace raMeshe;
 internal class ShapeBVH : IShapeBVH
 {
     public IShapeBVH.SplitStrategy Strategy => strategy_;
-    
+
+    ISubSpace? left_;
+    ISubSpace? right_;
+    public ISubSpace? Left => left_;
+
+    public ISubSpace? Right => right_;
+
     public Stream Serialize(MakerSpec? options = null)
     {
         throw new NotImplementedException();
@@ -16,6 +22,7 @@ internal class ShapeBVH : IShapeBVH
 
     public ShapeBVH(ITriMesh mesh, IShapeBVH.SplitStrategy ss)
     {
+        left_ = right_ = null;
         shape_ = mesh;
         strategy_ = IShapeBVH.SplitStrategy.atAverage;
     }
@@ -26,9 +33,14 @@ internal class ShapeBVH : IShapeBVH
         throw new NotImplementedException ();
     }
 
-    public bool Intersect(Ray3d hitter)
+    public bool Intersect(Ray3d hitter, out HitList? hits)
     {
         // Implementation of the intersection test with hitter on shape_
+        throw new NotImplementedException();
+    }
+
+    public bool Intersect(Ray3d ray, out HitFirst? hit)
+    {
         throw new NotImplementedException();
     }
 }

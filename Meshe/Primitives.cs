@@ -104,7 +104,23 @@ public struct BufferLayout : ITypeBuffer<RealOne, Indexer>
     public Indexer[] IB { get; }
 }
 
+public struct HitList
+{
+    Point3d first_;
+    List<RealTwo> offsets_;
+}
+
+public struct HitFirst
+{
+    Point3d first_;
+    RealTwo offset_;
+}
+
 public interface ISubSpace
 {
-    bool Intersect(Ray3d ray);
+    ISubSpace? Left { get; }
+    ISubSpace? Right { get; }
+
+    bool Intersect(Ray3d ray, out HitList? hits);
+    bool Intersect(Ray3d ray, out HitFirst? hit);
 }
