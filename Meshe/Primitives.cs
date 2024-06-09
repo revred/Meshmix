@@ -104,3 +104,7 @@ public struct BufferLayout : ITypeBuffer<RealOne, Indexer>
     public Indexer[] IB { get; }
 }
 
+public interface ISubSpace
+{
+    bool Intersect(Ray3d ray);
+}

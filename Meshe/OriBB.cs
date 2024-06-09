@@ -1,38 +1,24 @@
 ﻿using System.Numerics;
 
 namespace raMeshe;
-using Triangle = raMeshe.Intrix;
 
-public class OriBB
+public class OriBB : ISubSpace
 {
     public Vector3 Center;
     public Vector3 Size;
     public Quaternion Rotation;
 
-    // Methods for intersection tests
-}
-
-public class BVHsNode
-{
-    public AABB Bounds => bounds_;
-
-    AABB bounds_;
-
-    public BVHsNode? Left => left_;
-    BVHsNode? left_;
-    public BVHsNode? Right => right_;
-    BVHsNode? right_;
-
-    public IList<Triangle>? Triangles => triangles_;
-    IList<Triangle>? triangles_;
-
-    public bool IsLeaf => Left == null && Right == null;
-
-    public BVHsNode()
+    public static OriBB CreateFrom(IList<Vector3> vertices)
     {
-        bounds_ = new AABB();
-        triangles_ = null;
-        left_ = null;
-        right_ = null;
+        // Implementation to define OBB
+        throw new NotImplementedException();
     }
+
+    public bool Intersect(Ray3d ray)
+    {
+        // Implementation of intersection test with a ray
+        throw new NotImplementedException();
+    }
+
+    // Methods for intersection tests
 }

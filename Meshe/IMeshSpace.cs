@@ -7,8 +7,12 @@ public record MakerSpec(string Options);
 public interface IShapeBVH
 {
     Stream Serialize(MakerSpec? options = null);
-    enum SplitStrategy { atCentre = 0, atAverage = 1, atSAH = 2 };
+    // SplitStrategy.atSAH = Surface Area Hueristics
+    enum SplitStrategy { atCentre = 0, atAverage = 1, asSAH = 2 };  
     SplitStrategy Strategy { get; }
+
+    Task RebuildAsync();
+    Task TraverseAsync(Ray3d hitter);
 }
 
 public interface ITriMesh : IDisposable

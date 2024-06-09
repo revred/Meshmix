@@ -2,7 +2,7 @@
 
 namespace raMeshe;
 
-public class AABB
+public class AABB : ISubSpace
 {
     public Vector3 Min { get; set; }
     public Vector3 Max { get; set; }
@@ -30,5 +30,11 @@ public class AABB
         return (point.X >= Min.X && point.X <= Max.X) &&
                (point.Y >= Min.Y && point.Y <= Max.Y) &&
                (point.Z >= Min.Z && point.Z <= Max.Z);
+    }
+
+    public bool Intersect(Ray3d ray)
+    {
+        // Implementation of intersection test with a ray
+        throw new NotImplementedException();
     }
 }
