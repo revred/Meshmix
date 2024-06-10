@@ -21,6 +21,21 @@ public struct Intrix
     public Indexer a;
     public Indexer b;
     public Indexer c;
+    public Indexer this[int index]
+    {
+        get
+        {
+            index %= 3;
+            return index == 0 ? a : index == 1 ? b : c;
+        }
+        set
+        {
+            index %= 3;
+            if (index == 0) a = value;
+            else if (index == 1) b = value;
+            else c = value;
+        }
+    }
 }
 
 [StructLayout(LayoutKind.Sequential)]
@@ -91,29 +106,34 @@ public struct Ray3f
 // represents tiangle count and vertex count
 public interface ITriBuffer
 {
-    ulong Triangles => 0;
-    ulong Vertices => 0;
+    int Triangles => 0;
+    int Vertices => 0;
 }
 
 // The raw Vertex Buffer VB[] and Index Buffer are 
 // provided through the TriType 
 public interface ITrisType<T, I> : ITriBuffer
 {
-    T[] VB { get; }
-    I[] IB { get; }
+    IList<T> VB { get; }
+    IList<I> IB { get; }
 }
 // Triangles as Buffer Layour as Points and Triangles 
 public struct TrisLayout : ITrisType<R1Vec3, Intrix>
 {
-    public R1Vec3[] VB { get; }
-    public Intrix[] IB { get; }
+    public IList<R1Vec3> VB { get; }
+    public IList<Intrix> IB { get; }
+
+    public int Triangles => IB.Count;
+    public int Vertices => VB.Count;
 }
 
 // Triangles as Buffer Layour as floats and integers
 public struct TrisBuffer : ITrisType<RealOne, Indexer>
 {
-    public RealOne[] VB { get; }
-    public Indexer[] IB { get; }
+    public IList<RealOne> VB { get; }
+    public IList<Indexer> IB { get; }
+    public int Triangles => (IB.Count / 3);
+    public int Vertices => (VB.Count / 3) ;
 }
 
 // sequence of hits as a result of ray striking a shape
