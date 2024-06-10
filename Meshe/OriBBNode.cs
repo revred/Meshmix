@@ -2,23 +2,19 @@
 
 namespace raMeshe;
 
-public struct OriBB
-{
-    public Vector3 Center;
-    public Vector3 Size;
-    public Quaternion Rotation;
-}
+
 
 public class OriBBNode : ISubSpace
 {
     OriBB space_;
 
-    public static OriBB CreateFrom(IList<Vector3> vertices)
+    public static OriBBNode CreateFrom(IList<Vector3> vertices)
     {
         // Implementation to define OBB
         throw new NotImplementedException();
     }
 
+    public Point3d Centre => space_.Center;
     
     ISubSpace? left_;
     ISubSpace? right_;
@@ -36,6 +32,7 @@ public class OriBBNode : ISubSpace
     public OriBBNode()
     {
         left_ = right_ = null;
+        space_ = new OriBB();
     }
 
     // Methods for intersection tests

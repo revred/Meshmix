@@ -17,6 +17,8 @@ public class SplitNode : ISubSpace
 
     public bool IsLeaf => Left == null && Right == null;
 
+    public Point3d Centre => bounds_.Centre;
+
     public SplitNode()
     {
         bounds_ = new AABB();

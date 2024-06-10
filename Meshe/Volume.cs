@@ -1,7 +1,26 @@
-﻿using System.Numerics;
+﻿
 
 namespace raMeshe;
 
+using System.Numerics;
+using RealTwo = double;
+
+
+// a spherical shape used as a bounding volume, other volumes are AABB and OriBB
+public struct Sphere
+{
+    public RealTwo Radius;
+    public Point3d Centre;
+}
+
+public struct OriBB
+{
+    public Point3d Center;
+    public Vector3 Size;
+    public Quaternion Rotation;
+}
+
+// Axis aligned bounding box
 public struct AABB
 {
     public Vector3 Min { get; set; }
@@ -18,6 +37,9 @@ public struct AABB
         Max = Min = new Vector3();
     }
 
+    public Point3d Centre 
+        => new ((Min.X + Max.X)*0.5d, (Min.Y + Max.Y) * 0.5, (Min.Z + Max.Z)*0.5d);
+
     public bool Intersects(AABB other)
     {
         return (Min.X <= other.Max.X && Max.X >= other.Min.X) &&
@@ -30,33 +52,5 @@ public struct AABB
         return (point.X >= Min.X && point.X <= Max.X) &&
                (point.Y >= Min.Y && point.Y <= Max.Y) &&
                (point.Z >= Min.Z && point.Z <= Max.Z);
-    }
-}
-
-public class AABBNode : ISubSpace
-{
-    AABB space_;
-    ISubSpace? left_;
-    ISubSpace? right_;
-    public ISubSpace? Left => left_;
-
-    public ISubSpace? Right => right_;
-
-    public AABBNode()
-    {
-        space_ = new AABB();
-        left_ = right_ = null;
-    }
-
-    public bool Intersect(Ray3d ray, out HitList? hits)
-    {
-        // Implementation of intersection test with a ray
-        throw new NotImplementedException();
-    }
-
-    public bool Intersect(Ray3d ray, out HitFirst? hit)
-    {
-        // Implementation of intersection test with a ray
-        throw new NotImplementedException();
     }
 }

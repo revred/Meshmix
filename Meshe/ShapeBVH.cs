@@ -5,12 +5,14 @@ namespace raMeshe;
 internal class ShapeBVH : IShapeBVH
 {
     public IShapeBVH.SplitStrategy Strategy => strategy_;
-
+    AABB bounds_;
     ISubSpace? left_;
     ISubSpace? right_;
     public ISubSpace? Left => left_;
 
     public ISubSpace? Right => right_;
+
+    public Point3d Centre => bounds_.Centre;
 
     public Stream Serialize(MakerSpec? options = null)
     {
@@ -24,6 +26,7 @@ internal class ShapeBVH : IShapeBVH
     {
         left_ = right_ = null;
         shape_ = mesh;
+        bounds_ = new AABB();
         strategy_ = IShapeBVH.SplitStrategy.atAverage;
     }
 

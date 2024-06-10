@@ -43,6 +43,13 @@ public struct Point3d
         x = y = z = 0.0d;
     }
 
+    public Point3d(double xx, double yy, double zz)
+    {
+        x = xx;
+        y = yy;
+        z = zz;
+    }
+
     public Point3d(R1Vec3 r3)
     {
         x = r3.X;
@@ -80,44 +87,66 @@ public struct Ray3f
     public Point3f Origin;
     public Vector3f Direction;
 }
-
+// represents the interface that
+// represents tiangle count and vertex count
 public interface ITriBuffer
 {
     ulong Triangles => 0;
     ulong Vertices => 0;
 }
 
-public interface ITypeBuffer<T, I> : ITriBuffer
+// The raw Vertex Buffer VB[] and Index Buffer are 
+// provided through the TriType 
+public interface ITrisType<T, I> : ITriBuffer
 {
     T[] VB { get; }
     I[] IB { get; }
 }
-
-public struct BufferLogical : ITypeBuffer<R1Vec3, Intrix>
+// Triangles as Buffer Layour as Points and Triangles 
+public struct TrisLayout : ITrisType<R1Vec3, Intrix>
 {
     public R1Vec3[] VB { get; }
     public Intrix[] IB { get; }
 }
-public struct BufferLayout : ITypeBuffer<RealOne, Indexer>
+
+// Triangles as Buffer Layour as floats and integers
+public struct TrisBuffer : ITrisType<RealOne, Indexer>
 {
     public RealOne[] VB { get; }
     public Indexer[] IB { get; }
 }
 
+// sequence of hits as a result of ray striking a shape
 public struct HitList
 {
     Point3d first_;
-    List<RealTwo> offsets_;
+    List<RealTwo> offsets_ = [];
+
+    public HitList()
+    {
+        first_ = new Point3d();        
+    }
 }
 
+// first single hit as a result of ray striking a shape
 public struct HitFirst
 {
     Point3d first_;
     RealTwo offset_;
+
+    public HitFirst()
+    {
+        first_ = new Point3d();
+        offset_ = 0.0d;
+    }
+
+    public RealTwo Offset => offset_;
+    public Point3d Hit => first_;
 }
 
 public interface ISubSpace
 {
+    Point3d Centre { get; }
     ISubSpace? Left { get; }
     ISubSpace? Right { get; }
 
